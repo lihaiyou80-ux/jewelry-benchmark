@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>标品视频号 · 基建对标诊断</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<!-- 解锁遮罩 -->
+<div id="lock-screen" class="lock-screen">
+  <div class="lock-box">
+    <div class="lock-icon">🔐</div>
+    <div class="lock-title">标品视频号 · 基建对标诊断</div>
+    <div class="lock-sub">该页面已加密，请输入访问口令</div>
+    <input type="password" id="lock-input" placeholder="访问口令" autocomplete="off">
+    <button id="lock-btn" class="lock-btn">解锁</button>
+    <div class="lock-err" id="lock-err"></div>
+  </div>
+</div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-title">标品视频号 · 基建对标诊断</div>
+      <div class="brand-sub" id="meta-info">数据加载中…</div>
+    </div>
+    <div class="search-box">
+      <input type="text" id="search-input" placeholder="输入完整视频号名称后按 Enter 查询" autocomplete="off">
+      <button id="search-btn" class="search-btn">查询</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <!-- 空状态 -->
+  <section id="empty-state" class="empty-state">
+    <div class="empty-icon">🔍</div>
+    <div class="empty-title">请输入完整的视频号名称</div>
+    <div class="empty-sub">系统将匹配该视频号所属品类，并对比同品类头部客户的基建差异</div>
+    <div class="empty-hint" id="empty-hint"></div>
+  </section>
+
+  <!-- 结果区 -->
+  <section id="result" class="result hidden">
+    <!-- 客户 header -->
+    <div class="client-header">
+      <div class="client-name-block">
+        <div class="client-name" id="client-name"></div>
+        <div class="client-meta">
+          <span class="tag tag-cat" id="client-cat"></span>
+          <span class="tag" id="client-rank"></span>
+        </div>
+      </div>
+      <div class="benchmark-picker" id="benchmark-picker-wrap">
+        <div class="picker-label">选择对标对象（可多选）</div>
+        <div class="picker-row">
+          <label class="picker-chip"><input type="checkbox" class="bm-check" value="top1" checked><span>品类 TOP1</span></label>
+          <label class="picker-chip"><input type="checkbox" class="bm-check" value="top2"><span>品类 TOP2</span></label>
+          <label class="picker-chip"><input type="checkbox" class="bm-check" value="top3"><span>品类 TOP3</span></label>
+        </div>
+        <div class="picker-row picker-custom">
+          <input type="text" id="custom-bm-input" placeholder="输入其他视频号名称对比（严格全名）">
+          <button id="custom-bm-btn" class="picker-btn">添加</button>
+        </div>
+        <div class="picker-custom-tags" id="custom-bm-tags"></div>
+      </div>
+    </div>
+
+    <!-- 一句话总结 + 核心归因 -->
+    <div class="summary-block" id="summary-block"></div>
+
+    <!-- ① 关键差距诊断（置顶） -->
+    <div class="section-title">① 关键差距诊断</div>
+    <div class="diagnosis-block" id="diagnosis"></div>
+
+    <!-- ② 基础基建 -->
+    <div class="section-title">② 基础基建</div>
+    <div class="compare-table" id="table-basic"></div>
+
+    <!-- ③ 产品使用 -->
+    <div class="section-title">③ 产品使用情况</div>
+    <div class="compare-table" id="table-product"></div>
+
+    <!-- ④ 投放目标 & 智投类型 -->
+    <div class="section-title">④ 投放目标 &amp; 智投类型 · TOP3 对比</div>
+    <div class="compare-table" id="table-target"></div>
+
+    <!-- ⑤ 内容力 -->
+    <div class="section-title">⑤ 内容力</div>
+    <div class="compare-table" id="table-content"></div>
+
+    <!-- ⑥ 常规趋势诊断 -->
+    <div class="section-title">⑥ 消耗趋势诊断（近 14 日）</div>
+    <div class="trend-block" id="trend-block"></div>
+    <div class="section-title">⑦ 前后期指标对比明细</div>
+    <div class="phase-table-block" id="phase-table"></div>
+  </section>
+</main>
+
+<!-- 诊断图 Modal -->
+<div id="drop-modal" class="modal hidden" onclick="closeDropChart(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <span id="modal-title">消耗趋势诊断</span>
+      <button class="modal-close" onclick="closeDropChart()">×</button>
+    </div>
+    <div class="modal-body">
+      <img id="drop-img" src="" alt="趋势诊断图">
+    </div>
+  </div>
+</div>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
